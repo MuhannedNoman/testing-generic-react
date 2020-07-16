@@ -11,8 +11,23 @@ const HelloWorld: React.FC<Props> = ({ name }) => {
   return <div>Hello {name}</div>;
 };
 
+interface FormProps<T> {
+  values: T;
+  children: (values: T) => JSX.Element;
+}
+
+const Form = <T extends {}>({ values, children }: FormProps<T>) => {
+  return children(values);
+};
+
 const App: React.FC = () => {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <Form values={{ firstName: 'Bob' }}>
+        {(values) => <div>{values.firstName}</div>}
+      </Form>
+    </div>
+  );
 };
 
 export default App;
